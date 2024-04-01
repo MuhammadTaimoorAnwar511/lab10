@@ -8,19 +8,14 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/NaseemKhan005/react-bank-app'
+                git 'https://github.com/MuhammadTaimoorAnwar511/lab10'
             }
         }
 
         stage('Install Dependencies') {
             steps {
                 script {
-                    // Install frontend dependencies
-                    dir('frontend') {
-                        sh 'npm install'
-                    }
-                    // Install backend dependencies
-                    dir('backend') {
+                    dir('app') {
                         sh 'npm install'
                     }
                 }
@@ -30,7 +25,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    dir('frontend') {
+                    dir('app') {
                         sh 'npm run build'
                     }
                 }
@@ -40,7 +35,8 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    dir('frontend') {
+                    dir('app') {
+                        // Replace with actual test command
                         sh 'npm test'
                     }
                 }
@@ -50,9 +46,9 @@ pipeline {
         stage('Dockerize and Deploy') {
             steps {
                 script {
-                    // Build Docker image
-                    sh 'docker build -t react-app .'
-                    // Run containers using Docker Compose
+                    // Assuming the Dockerfile is at the root or specify the path
+                    sh 'docker build -t express-mongodb-app .'
+                    // Assuming docker-compose.yml is properly set up in the project root
                     sh 'docker-compose up -d'
                 }
             }
